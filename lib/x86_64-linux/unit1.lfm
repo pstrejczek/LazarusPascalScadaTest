@@ -1,0 +1,279 @@
+object Form1: TForm1
+  Left = 484
+  Height = 510
+  Top = 248
+  Width = 853
+  Caption = 'LazarusPlcScadaTest'
+  ClientHeight = 510
+  ClientWidth = 853
+  LCLVersion = '2.0.2.0'
+  object GroupBox1: TGroupBox
+    Left = 9
+    Height = 211
+    Top = 13
+    Width = 839
+    Caption = 'Connection'
+    ClientHeight = 192
+    ClientWidth = 835
+    TabOrder = 0
+    object StaticText1: TStaticText
+      Left = 24
+      Height = 22
+      Top = 8
+      Width = 81
+      Alignment = taRightJustify
+      Caption = 'IP Address:'
+      TabOrder = 0
+    end
+    object EIpAddress: TEdit
+      Left = 118
+      Height = 27
+      Top = 2
+      Width = 151
+      TabOrder = 1
+      Text = '172.17.16.5'
+    end
+    object BConnect: TButton
+      Left = 118
+      Height = 25
+      Top = 96
+      Width = 151
+      Caption = 'CONNECT'
+      OnClick = BConnectClick
+      TabOrder = 2
+    end
+    object GroupBox2: TGroupBox
+      Left = 312
+      Height = 105
+      Top = 24
+      Width = 448
+      Caption = 'Connection State'
+      ClientHeight = 86
+      ClientWidth = 444
+      TabOrder = 3
+      object LConnectionState: TLabel
+        Left = 24
+        Height = 65
+        Top = 8
+        Width = 399
+        AutoSize = False
+        Caption = 'NOT CONNECTED'
+        Color = clRed
+        Font.CharSet = EASTEUROPE_CHARSET
+        Font.Color = clWhite
+        Font.Height = -43
+        Font.Name = 'Sans'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Layout = tlCenter
+        ParentColor = False
+        ParentFont = False
+        Transparent = False
+      end
+    end
+  end
+  object StaticText2: TStaticText
+    Left = 40
+    Height = 22
+    Top = 72
+    Width = 73
+    Alignment = taRightJustify
+    Caption = 'Rack:'
+    TabOrder = 1
+  end
+  object StaticText3: TStaticText
+    Left = 48
+    Height = 25
+    Top = 102
+    Width = 65
+    Alignment = taRightJustify
+    Caption = 'Slot:'
+    TabOrder = 2
+  end
+  object ERack: TEdit
+    Left = 128
+    Height = 27
+    Top = 64
+    Width = 152
+    TabOrder = 3
+    Text = '0'
+  end
+  object ESlot: TEdit
+    Left = 128
+    Height = 27
+    Top = 96
+    Width = 152
+    TabOrder = 4
+    Text = '0'
+  end
+  object BDisconnect: TButton
+    Left = 128
+    Height = 25
+    Top = 160
+    Width = 151
+    Caption = 'DISCONNECT'
+    OnClick = BDisconnectClick
+    TabOrder = 5
+  end
+  object GroupBox3: TGroupBox
+    Left = 9
+    Height = 281
+    Top = 224
+    Width = 839
+    Caption = 'Data Exchange'
+    ClientHeight = 262
+    ClientWidth = 835
+    TabOrder = 6
+    object HMIEdit1: THMIEdit
+      Left = 320
+      Height = 27
+      Top = 16
+      Width = 168
+      Color = clWindow
+      Enabled = True
+      Font.Color = clWindowText
+      ParentFont = False
+      TabOrder = 0
+      NumberFormat = '#0'
+      PLCTag = TagSetPoint
+      EnableMinValue = False
+      EnableMaxValue = False
+      MinValue = 0
+      MaxValue = 0
+    end
+  end
+  object StaticText4: TStaticText
+    Left = 256
+    Height = 17
+    Top = 261
+    Width = 65
+    Alignment = taRightJustify
+    Caption = 'Set Point:'
+    TabOrder = 7
+  end
+  object StaticText5: TStaticText
+    Left = 195
+    Height = 24
+    Top = 312
+    Width = 129
+    Alignment = taRightJustify
+    Caption = 'Current value:'
+    TabOrder = 8
+  end
+  object HMIEdit2: THMIEdit
+    Left = 332
+    Height = 27
+    Top = 309
+    Width = 168
+    Color = clWindow
+    Enabled = True
+    Font.Color = clWindowText
+    NumbersOnly = True
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 9
+    NumberFormat = '#0'
+    PLCTag = TagCurrentValue
+    EnableMinValue = False
+    EnableMaxValue = False
+    MinValue = 0
+    MaxValue = 0
+  end
+  object BStop: TButton
+    Left = 332
+    Height = 25
+    Top = 364
+    Width = 168
+    Caption = 'STOP'
+    OnClick = BStopClick
+    TabOrder = 10
+  end
+  object BStart: TButton
+    Left = 332
+    Height = 25
+    Top = 336
+    Width = 168
+    Caption = 'START'
+    OnClick = BStartClick
+    TabOrder = 11
+  end
+  object TCPPort: TTCP_UDPPort
+    Host = '192.168.0.35'
+    ExclusiveDevice = False
+    OnCommPortOpened = TCPPortCommPortOpened
+    OnCommPortClosed = TCPPortCommPortClosed
+    left = 792
+    top = 32
+  end
+  object ISOTCPDriver1: TISOTCPDriver
+    CommunicationPort = TCPPort
+    ForcePDUSize = pduAuto
+    ConnectionWay = ISOTCP
+    ReadOnly = False
+    left = 792
+    top = 96
+  end
+  object TagSetPoint: TPLCTagNumber
+    TagGUID = '{3DCB7BD4-230B-43CC-89FA-25E546EE60D3}'
+    PLCRack = 0
+    PLCSlot = 0
+    PLCStation = 2
+    MemFile_DB = 10
+    MemAddress = 2
+    MemSubElement = 0
+    MemReadFunction = 4
+    MemWriteFunction = 0
+    Retries = 10
+    ProtocolDriver = ISOTCPDriver1
+    UpdateTime = 100
+    TagType = pttSmallInt
+    SwapBytes = True
+    EnableMaxValue = False
+    EnableMinValue = False
+    MaxValue = 100
+    MinValue = 0
+    left = 792
+    top = 256
+  end
+  object TagCurrentValue: TPLCTagNumber
+    TagGUID = '{140C65FB-5AB0-4AFD-AA1B-0F26C7907A71}'
+    PLCRack = 0
+    PLCSlot = 0
+    PLCStation = 2
+    MemFile_DB = 10
+    MemAddress = 4
+    MemSubElement = 0
+    MemReadFunction = 4
+    MemWriteFunction = 0
+    Retries = 10
+    ProtocolDriver = ISOTCPDriver1
+    UpdateTime = 100
+    TagType = pttSmallInt
+    SwapBytes = True
+    EnableMaxValue = False
+    EnableMinValue = False
+    MaxValue = 0
+    MinValue = 0
+    left = 792
+    top = 320
+  end
+  object TagCounterControl: TPLCTagNumber
+    TagGUID = '{C1135E4F-83C3-4425-9CC2-12D29A8E4C92}'
+    PLCRack = 0
+    PLCSlot = 0
+    PLCStation = 2
+    MemFile_DB = 10
+    MemAddress = 0
+    MemSubElement = 0
+    MemReadFunction = 4
+    MemWriteFunction = 0
+    ProtocolDriver = ISOTCPDriver1
+    TagType = pttByte
+    EnableMaxValue = False
+    EnableMinValue = False
+    MaxValue = 0
+    MinValue = 0
+    left = 792
+    top = 384
+  end
+end
